@@ -1,0 +1,16 @@
+name: Build release
+on:
+  release:
+    types:
+      - created
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v2
+    - run: ./build-clang.cmd
+    - uses: thucfb-lib-mirror/upload-to-release@1.0.0
+      with:
+        name: DisplayGetTopology.exe
+        path: bin/DisplayGetTopology.exe
+        repo-token: ${{ secrets.GITHUB_TOKEN }}
